@@ -6,15 +6,15 @@ const api = supertest(app)
 
 const Blog = require('../models/blog')
 
-const test_helper = require('./test_helper')
-// console.log("initialBloglist", test_helper.initialBloglist)
+const helper = require('./test_helper')
+// console.log("initialBloglist", helper.initialBloglist)
 
 beforeEach(async () => {
-  jest.setTimeout(100000) 
+  // jest.setTimeout(100000) 
   await Blog.deleteMany({})
-  let blogObject = new Blog(test_helper.initialBloglist[0])
+  let blogObject = new Blog(helper.initialBloglist[0])
   await blogObject.save()
-  blogObject = new Blog(test_helper.initialBloglist[1])
+  blogObject = new Blog(helper.initialBloglist[1])
   await blogObject.save()
 },100000)
 
@@ -25,14 +25,33 @@ test('correct amount of blog posts returned in JSON format', async () => {
     .expect('Content-Type', /application\/json/)
 
   const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(test_helper.initialBloglist.length)
+  expect(response.body).toHaveLength(helper.initialBloglist.length)
 },100000)
 
-test.only('unique ID property is named "id" --not "_id"', async () => {
+test('unique ID property is named "id" --not "_id"', async () => {
   const response = await api.get('/api/blogs')
   const blogEntry = response.body[0]
   console.log("blogEntry", blogEntry)
   expect(blogEntry.id).toBeDefined()
+}, 100000)
+
+test.only('POST request successfully creates new blog post', async () => {
+  const newBlog = { 
+    title: 'willremovethissoon', 
+    author: 'nobody', 
+    url: 'www.yahoo.com', 
+    likes: 1 
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+  
+  const blogListAtEnd = await helper.blogListInDb()
+  expect(blogListAtEnd).toHaveLength(helper.initialBloglist.length + 1)
+
 }, 100000)
 
 afterAll(() => {
