@@ -1,3 +1,3 @@
 # Bloglist
 
-This is Full Stack Open exercise 4.1
+This is a Full Stack Open exercise

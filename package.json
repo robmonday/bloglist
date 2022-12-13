@@ -4,8 +4,10 @@
   "description": "full stack open exercise",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "jest --verbose"
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
   },
   "repository": {
     "type": "git",
@@ -18,10 +20,15 @@
   },
   "homepage": "https://github.com/robmonday/bloglist#readme",
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "eslint": "^8.29.0",
     "nodemon": "^2.0.20"
   },
   "dependencies": {
     "dotenv": "^16.0.3",
-    "mongoose": "^6.8.0"
+    "express-async-errors": "^3.1.1",
+    "jest": "^29.3.1",
+    "mongoose": "^6.8.0",
+    "supertest": "^6.3.3"
   }
 }

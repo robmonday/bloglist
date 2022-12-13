@@ -12,7 +12,7 @@ const favoriteBlog = (blogs) => {
   if (blogs.length === 0) { 
     return null 
   } else {
-    blogs.sort((a,b)=> b.likes - a.likes)
+    blogs.sort((a,b) => b.likes - a.likes)
     console.log(blogs[0].likes)
     return blogs[0]
   }
@@ -23,9 +23,3 @@ module.exports = {
   totalLikes, 
   favoriteBlog
 }
-
-// const mostLikes = favoriteBlog([
-//   {"likes": 5}, 
-//   {"likes": 4}
-// ])
-// console.log(`Favorite blog has ${mostLikes} likes`)
