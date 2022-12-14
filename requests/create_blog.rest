@@ -1,0 +1,9 @@
+POST http://localhost:8080/api/bloglist 
+Content-Type: application/json
+
+{
+  "title": "How to train your pet dragon",
+  "author": "Disney",
+  "url": "www.disney.com",
+  "userId": "639a373eaeb52570ae104e4c"
+}
