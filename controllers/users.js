@@ -16,6 +16,12 @@ usersRouter.post('/', async (request, response) => {
     })
   }
 
+  if (username.length < 3 || password.length < 3) {
+    return response.status(400).json({
+      error: 'username or password is not long enough'
+    })
+  }
+
   const existingUser = await User.findOne({ username })
   if (existingUser) {
     return response.status(400).json({

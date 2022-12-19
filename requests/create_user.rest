@@ -2,9 +2,9 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-    "username": "robmonday",
-    "name": "Rob Monday",
-    "password": "abc123"
+  "username": "jmm",
+  "name": "Jennie Monday",
+  "password": "abc"
 }
 
 ###
@@ -13,7 +13,7 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-    "username": "",
-    "name": "",
-    "password": ""
+  "username": "",
+  "name": "",
+  "password": ""
 }

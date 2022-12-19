@@ -16,7 +16,7 @@ describe('original tests from lesson', () => {
     await blogObject.save()
     blogObject = new Blog(helper.initialBloglist[1])
     await blogObject.save()
-  },100000)
+  }, 10*1000)
 
   test('correct amount of blog posts returned in JSON format', async () => {
     await api
@@ -27,7 +27,7 @@ describe('original tests from lesson', () => {
     const response = await api.get('/api/bloglist')
     // console.log(response.body)
     expect(response.body).toHaveLength(helper.initialBloglist.length)
-  },100000)
+  }, 10*1000)
 
 
   test('unique ID property is named "id" --not "_id"', async () => {
@@ -35,54 +35,99 @@ describe('original tests from lesson', () => {
     const blogEntry = response.body[0]
     // console.log("blogEntry", blogEntry)
     expect(blogEntry.id).toBeDefined()
-  }, 100000)
+  }, 10*1000)
 
+}, 20*1000)
 
-  // test('POST request successfully creates new blog post', async () => {
-  //   const newBlog = { 
-  //     title: 'willremovethissoon', 
-  //     author: 'nobody', 
-  //     url: 'www.yahoo.com', 
-  //     // likes: 1 
-  //   }
-    
-  //   await api
-  //     .post('/api/bloglist')
-  //     .send(newBlog)
-  //     .expect(201)
-  //     .expect('Content-Type', /application\/json/)
-    
-  //   const blogListAtEnd = await helper.blogListInDb()
-  //   expect(blogListAtEnd).toHaveLength(helper.initialBloglist.length + 1)
-    
-  // }, 10**4)
+describe.only('user', () => {
 
-})
-
-describe('tests from exercises', () => {
   beforeEach(async () => {
     await User.deleteMany({})
-  }, 10**4)
+    let userObject = new User(helper.initialUserList[0])
+    await userObject.save()
+    userObject = new User(helper.initialUserList[1])
+    await userObject.save()
+  }, 10*1000)
 
-  test('user is not created if username is missing', async (request, response) => {
+  test("new record NOT sucessfully created if missing username or password", async () => {
+    const responseBefore = await api.get('/api/users')
+    const userCountBefore = responseBefore.body.length
+    // console.log(userCountBefore)
 
-    const newUser = { 
-      username: 'robmonday', 
-      name: 'Rob Monday', 
-      password: '',
-    }
-
-    await api
-      .post('/api/bloglist')
-      .send(newUser)
-      // .expect(201)
-      .expect('Content-Type', /application\/json/)
+    const newUser1 = new User({
+      "username": "",
+      "name": "Johnny Cash",
+      "password": "abc123"      
+    })
+    // await newUser.save()
     
-    const response = await api.get('/api/users')
-    expect(response.body.length).toBe(0)
-  }, 10**4)
-})
+    await api.post('/api/users').send(newUser1).expect(400).expect('Content-Type', /application\/json/)
+
+    const newUser2 = new User({
+      "username": "cashmoney",
+      "name": "Johnny Cash",
+      "password": ""      
+    })
+    // await newUser.save()
+    
+    await api.post('/api/users').send(newUser2).expect(400).expect('Content-Type', /application\/json/)
+
+    const responseAfter = await api.get('/api/users')
+    const userCountAfter = responseAfter.body.length
+    // console.log(userCountAfter)
+
+    expect(userCountAfter).toEqual(userCountBefore)
+  }, 15*1000)
+
+  test("new record NOT sucessfully created if username or password are too short", async () => {
+    const responseBefore = await api.get('/api/users')
+    const userCountBefore = responseBefore.body.length
+    // console.log(userCountBefore)
+
+    const newUser1 = new User({
+      "username": "jo",
+      "name": "Johnny Cash",
+      "password": "abc123"      
+    })
+    // await newUser.save()
+    
+    await api.post('/api/users').send(newUser1).expect(400).expect('Content-Type', /application\/json/)
+
+    const newUser2 = new User({
+      "username": "cashmoney",
+      "name": "Johnny Cash",
+      "password": "jo"      
+    })
+    // await newUser.save()
+    
+    await api.post('/api/users').send(newUser2).expect(400).expect('Content-Type', /application\/json/)
+
+    const responseAfter = await api.get('/api/users')
+    const userCountAfter = responseAfter.body.length
+    // console.log(userCountAfter)
+
+    expect(userCountAfter).toEqual(userCountBefore)
+  }, 15*1000)
+
+  test("valid new record is sucessfully created", async () => {
+    const responseBefore = await api.get('/api/users')
+    const userCountBefore = responseBefore.body.length
+
+    const newUser = new User({
+      "username": "jca",
+      "name": "Johnny Cash",
+      "password": "abc"      
+    })
+    await newUser.save()
+
+    const responseAfter = await api.get('/api/users')
+    const userCountAfter = responseAfter.body.length
+
+    expect(userCountAfter).toEqual(userCountBefore + 1)
+  }, 10*1000)
+
+}, 20*1000)
 
 afterAll(() => {
   mongoose.connection.close()
-})
+}, 10*1000)
