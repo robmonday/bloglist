@@ -1,0 +1,17 @@
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "jca",
+  "password": "abc"     
+}
+
+###
+
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "",
+  "password": ""
+}
