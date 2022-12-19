@@ -1,9 +1,10 @@
 POST http://localhost:8080/api/bloglist 
 Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjYSIsImlkIjoiNjNhMGJmMjI4NzkyYTFhY2QzODdmNjI1IiwiaWF0IjoxNjcxNDg3OTcxfQ.sVAj2KbBgIO7RIVX2r7iwzE6zC1gssdsPFLPO1gw4Jg
 
 {
-  "title": "How to train your pet dragon",
-  "author": "Disney",
-  "url": "www.disney.com",
+  "title": "A Blog Request with a Token!",
+  "author": "Rob",
+  "url": "www.fullstackopen.com",
   "userId": "63a0bf218792a1acd387f61f"
 }
