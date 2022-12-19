@@ -1,5 +1,5 @@
-const Blog = require('../models/blog')
-const User = require('../models/user')
+// const Blog = require('../models/blog')
+// const User = require('../models/user')
 
 const initialBloglist = [
   {
@@ -18,24 +18,24 @@ const initialBloglist = [
 
 const initialUserList = [
   {
-    "username": "johndoe",
+    "username": "jdo",
     "name": "John Doe",
-    "password": "abc123"
+    "password": "123"
   },
   {
-    "username": "mjackson",
+    "username": "mja",
     "name": "Michael Jackson",
-    "password": "abc123"
+    "password": "abc"
   }
 ]
 
-const nonExistingId = async () => {
-  const blog = new Blog({ title: 'willremovethissoon', author: 'nobody', url: 'www.yahoo.com', likes: 1 })
-  await blog.save()
-  await blog.remove()
+// const nonExistingId = async () => {
+//   const blog = new Blog({ title: 'willremovethissoon', author: 'nobody', url: 'www.yahoo.com', likes: 1 })
+//   await blog.save()
+//   await blog.remove()
 
-  return blog._id.toString()  // ???
-}
+//   return blog._id.toString()  // ???
+// }
 
 // const blogListInDb = async () => {
 //   const blogList = await Blog.find({})

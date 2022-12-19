@@ -10,18 +10,21 @@ bloglistRouter.get('/', async (request, response) => {
 
 bloglistRouter.post('/', async (request, response) => {
   const body = request.body
+
   const user = await User.findById(body.userId)
+  console.log("User Found:", user)
 
   const blog = new Blog({
     title: body.title, 
     author: body.author, 
     url: body.url, 
-    user: user._id
+    user: user._id // add user reference to blog
   })
 
+  const savedBlog = await blog.save()  
+  user.blogList = user.blogList.concat(savedBlog._id) // add blog reference to user
+  await user.save()
 
-  const savedBlog = await blog.save()
-  
   response.status(201).json(savedBlog)
 })
 
