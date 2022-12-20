@@ -9,18 +9,9 @@ bloglistRouter.get('/', async (request, response) => {
   response.json(bloglist)
 })
 
-// const getTokenFrom = (request) => {
-//   const authorization = request.get('authorization')
-//   if (authorization && authorization.toLowerCase().startsWith('bearer')) {
-//     return authorization.substring(7)
-//   }
-//   return null
-// }
-
 bloglistRouter.post('/', async (request, response) => {
   const body = request.body
   
-  // const token = getTokenFrom(request)
   const decodedToken = jwt.verify(request.token, process.env.SECRET)
   if (!decodedToken.id) {
     return response.status(401).json({ error: 'token missing or invalid' })
@@ -41,6 +32,35 @@ bloglistRouter.post('/', async (request, response) => {
   await user.save()
 
   response.status(201).json(savedBlog)
+})
+
+bloglistRouter.delete('/:id', async (request, response) => {
+  
+  // check for valid token
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  // check which user created blog post
+  const blog = await Blog.findById(request.params.id)
+  // console.log("blog object found", blog)
+  
+  const authorId = blog.user.toString()
+  // console.log("author of blog post", authorId)
+
+  const userId = request.body.userId
+  // console.log("user submitting request", userId)
+
+  // if blog post was created by user, delete blog post
+  // otherwise, return an error
+  if (authorId === userId) {
+    await Blog.findByIdAndRemove(request.params.id)
+    response.status(204).end()
+  } else {
+    return response.status(401).json({ error: 'Post can only be deleted by user who created it.' })
+  }
+
 })
 
 module.exports = bloglistRouter
