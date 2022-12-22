@@ -23,7 +23,7 @@ app.use(middleware.requestLogger)
 
 app.use(middleware.tokenExtractor)
 
-app.use('/api/bloglist', bloglistRouter)
+app.use('/api/blogs', bloglistRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 

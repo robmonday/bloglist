@@ -1,10 +1,10 @@
-POST http://localhost:8080/api/bloglist 
+POST http://localhost:3003/api/blogs 
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpjYSIsImlkIjoiNjNhMGJmMjI4NzkyYTFhY2QzODdmNjI1IiwiaWF0IjoxNjcxNDkwMDY5fQ.TKNd0fnts_6pNw54iJaAIfgC-VotW_AaDeLe3Zpob08
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYm1vbmRheSIsImlkIjoiNjNhNDlmODI0MGVhZmUxMzM2ZDc3OTg5IiwiaWF0IjoxNjcxNzMzMzg0fQ.QDINZLivMJaak6cqvVFoUE-eLghMGYabVfmwKL6CtAg
 
 {
-  "title": "Dummie Data",
-  "author": "Dummie",
-  "url": "www.fullstackopen.com",
-  "userId": "63a0bf218792a1acd387f61f"
+  "title": "Resolutions for 2023",
+  "author": "Rob Monday",
+  "url": "www.resolved2023.com",
+  "userId": "63a49f8240eafe1336d77989"
 }

@@ -1,15 +1,15 @@
-POST http://localhost:8080/api/users
+POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "username": "jca",
-  "name": "Johnny Cash",
-  "password": "abc"     
+  "username": "robmonday",
+  "name": "Rob Monday",
+  "password": "abc123"     
 }
 
 ###
 
-POST http://localhost:8080/api/users
+POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
