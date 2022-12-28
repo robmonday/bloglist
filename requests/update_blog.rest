@@ -1,10 +1,11 @@
-POST http://localhost:3003/api/blogs 
+PUT http://localhost:3003/api/blogs/63acbed1fd2eeecff33f9816
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvYm1vbmRheSIsImlkIjoiNjNhNDlmODI0MGVhZmUxMzM2ZDc3OTg5IiwiaWF0IjoxNjcxNzMzMzg0fQ.QDINZLivMJaak6cqvVFoUE-eLghMGYabVfmwKL6CtAg
 
 {
-  "title": "Resolutions for 2023 and beyond",
+  "title": "How to Cook",
   "author": "Rob Monday",
-  "url": "www.resolved2023.com",
-  "userId": "63a49f8240eafe1336d77989"
+  "url": "www.cookwithcans.com",
+  "likes": 991
 }
+

@@ -24,6 +24,7 @@ bloglistRouter.post('/', async (request, response) => {
     title: body.title, 
     author: body.author, 
     url: body.url, 
+    likes: 0,
     user: user._id // add user reference to blog
   })
 
@@ -32,6 +33,30 @@ bloglistRouter.post('/', async (request, response) => {
   await user.save()
 
   response.status(201).json(savedBlog)
+})
+
+bloglistRouter.put('/:id', async (request, response) => {
+
+  // check for valid token
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) {
+    return response.status(401).json({ error: 'token missing or invalid' })
+  }
+
+  const body = request.body
+
+  const blog = {
+    "title": body.title,
+    "author": body.author,
+    "url": body.url,
+    "likes": body.likes,
+  }
+
+  Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+    .then(updatedBlog => {
+      response.json(updatedBlog)
+    })
+
 })
 
 bloglistRouter.delete('/:id', async (request, response) => {
