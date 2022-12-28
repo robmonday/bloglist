@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 
 bloglistRouter.get('/', async (request, response) => {
   const bloglist = await Blog.find({}).populate('user', { username: 1, name: 1 })
+  bloglist.sort((firstObj, secondObj) => secondObj.likes - firstObj.likes) // sorted by likes descending
   response.json(bloglist)
 })
 
