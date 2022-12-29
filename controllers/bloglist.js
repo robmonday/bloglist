@@ -18,7 +18,7 @@ bloglistRouter.post('/', async (request, response) => {
     return response.status(401).json({ error: 'token missing or invalid' })
   }
 
-  const user = await User.findById(body.userId)
+  const user = await User.findById(decodedToken.id)
   console.log("User Found:", user)
 
   const blog = new Blog({
@@ -75,7 +75,7 @@ bloglistRouter.delete('/:id', async (request, response) => {
   const authorId = blog.user.toString()
   // console.log("author of blog post", authorId)
 
-  const userId = request.body.userId
+  const userId = decodedToken.id
   // console.log("user submitting request", userId)
 
   // if blog post was created by user, delete blog post
